@@ -4,7 +4,7 @@ buildscript {
     ext {
         buildToolsVersion = "30.0.2"
         minSdkVersion = 21
-        compileSdkVersion = 30
+        compileSdkVersion = 31
         targetSdkVersion = 30
     }
     repositories {
@@ -35,7 +35,7 @@ allprojects {
         jcenter()
         maven { url 'https://www.jitpack.io' }
         maven {
-            url "https://raw.githubusercontent.com/idnow/de.idnow.android/de.idnow.android-5.1.11"
+            url "https://raw.githubusercontent.com/idnow/de.idnow.android/de.idnow.android-5.3.0"
         }
     }
 }
