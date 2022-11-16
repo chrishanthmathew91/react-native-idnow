@@ -34,7 +34,7 @@ allprojects {
         jcenter()
         maven { url 'https://www.jitpack.io' }
         maven {
-            url "https://raw.githubusercontent.com/idnow/de.idnow.android/de.idnow.android-5.2.0"
+            url "https://raw.githubusercontent.com/idnow/de.idnow.android/de.idnow.android-6.0.0"
         }
         maven {
             url = uri("https://repo.authada.de/public/")

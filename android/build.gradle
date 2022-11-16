@@ -46,5 +46,5 @@ repositories {
 dependencies {
     implementation 'com.facebook.react:react-native:+'
 
-    implementation 'de.idnow.sdk:idnow-android-sdk:5.2.0'
+    implementation 'de.idnow.sdk:idnow-android-sdk:6.0.0'
 }
