@@ -107,9 +107,9 @@ public class RNIdnowModule extends ReactContextBaseJavaModule {
             //     }
             // }
 
-            IDnowSDK.setTransactionToken(options.getString("transactionToken"), reactContext);
+            IDnowSDK.setTransactionToken(options.getString("transactionToken"));
 
-            IDnowSDK.getInstance().start(IDnowSDK.getTransactionToken(reactContext));
+            IDnowSDK.getInstance().start(IDnowSDK.getTransactionToken());
         } catch (Exception e) {
             promise.reject("ERR_UNEXPECTED_EXCEPTION", e);
         }
