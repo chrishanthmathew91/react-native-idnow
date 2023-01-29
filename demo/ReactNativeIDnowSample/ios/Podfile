@@ -8,11 +8,24 @@ target 'ReactNativeIDnowSample' do
   $static_framework = ['FlipperKit', 'Flipper', 'Flipper-Folly',
     'CocoaAsyncSocket', 'ComponentKit', 'DoubleConversion',
     'glog', 'Flipper-PeerTalk', 'Flipper-RSocket', 'Yoga', 'YogaKit',
-    'CocoaLibEvent', 'openssl-ios-bitcode', 'boost-for-react-native']
+    'CocoaLibEvent', 'openssl-ios-bitcode', 'boost-for-react-native', 'RCT-Folly', 'React-jsi', 'React-cxxreact',
+    'React-jsiexecutor', 'React-Core', 'React-RCTText', 'ReactCommon', 'RCTTypeSafety', 'FBReactNativeSpec',
+    'React-RCTSettings', 'React-RCTLinking', 'React-RCTVibration', 'React-RCTAnimation', 'React-RCTNetwork',
+    'React-RCTImage','React-RCTBlob', 'React-CoreModules']
 
   pre_install do |installer|
     Pod::Installer::Xcode::TargetValidator.send(:define_method, :verify_no_static_framework_transitive_dependencies) {}
     installer.pod_targets.each do |pod|
+      
+      if pod.respond_to?(:product_type) and pod.product_type == "com.apple.product-type.bundle"
+        pod.build_configurations.each do |config|
+            config.build_settings['CODE_SIGNING_ALLOWED'] = 'NO'
+        end
+      end
+      
+      
+    
+      pod.build_settings['ARCHS'] = '${ARCHS_STANDARD_64_BIT}'
         if $static_framework.include?(pod.name)
           def pod.build_type;
             Pod::BuildType.static_library
@@ -30,8 +43,8 @@ target 'ReactNativeIDnowSample' do
     :hermes_enabled => false
   )
   
-  use_frameworks! :linkage => :static
-  pod 'IDnowSDK', '6.0.0'
+  use_frameworks!
+  pod 'IDnowSDK', '6.1.4'
 
   target 'ReactNativeIDnowSampleTests' do
      inherit! :complete
@@ -42,7 +55,7 @@ target 'ReactNativeIDnowSample' do
   #
   # Note that if you have use_frameworks! enabled, Flipper will not work and
   # you should disable the next line.
-  use_flipper!({ 'Flipper' => '0.87.0' })  
+  #use_flipper!({ 'Flipper' => '0.87.0' })  
 
   post_install do |installer|
     react_native_post_install(installer)
