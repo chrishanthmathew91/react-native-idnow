@@ -38,13 +38,8 @@ repositories {
     jcenter()
     mavenCentral()
     google()
-    maven {
-        url "https://raw.githubusercontent.com/idnow/de.idnow.android/master"
-    }
 }
 
 dependencies {
     implementation 'com.facebook.react:react-native:+'
-
-    implementation 'de.idnow.sdk:idnow-android-sdk:6.1.4'
 }
