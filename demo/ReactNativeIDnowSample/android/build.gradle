@@ -34,7 +34,7 @@ allprojects {
         jcenter()
         maven { url 'https://www.jitpack.io' }
         maven {
-            url "https://raw.githubusercontent.com/idnow/de.idnow.android/de.idnow.android-6.1.4"
+            url "https://raw.githubusercontent.com/idnow/de.idnow.android/de.idnow.android-6.2.0"
         }
         maven {
             url = uri("https://repo.authada.de/public/")
@@ -42,8 +42,8 @@ allprojects {
                 basic(BasicAuthentication)
             }
             credentials {
-                username ""
-                password ""
+                username "idnow0919"
+                password "n8rNRW9f3J"
             }
         }
     }
