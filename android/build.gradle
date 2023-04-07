@@ -47,4 +47,6 @@ dependencies {
     implementation 'com.facebook.react:react-native:+'
 
     implementation 'de.idnow.sdk:idnow-android-sdk:6.4.0'
+    implementation 'de.idnow.android.eid:idnow-android-eid-sdk:2.6.0'
+    implementation "androidx.multidex:multidex:2.0.1"
 }
