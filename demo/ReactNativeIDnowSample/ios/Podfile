@@ -31,7 +31,7 @@ target 'ReactNativeIDnowSample' do
   )
   
   use_frameworks! :linkage => :static
-  pod 'IDnowSDK', '6.4.0'
+  pod 'IDnowSDK', '6.7.0'
 
   target 'ReactNativeIDnowSampleTests' do
      inherit! :complete
