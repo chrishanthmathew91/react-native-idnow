@@ -39,7 +39,7 @@ repositories {
     mavenCentral()
     google()
     maven {
-        url "https://raw.githubusercontent.com/idnow/de.idnow.android/master"
+        url "https://raw.githubusercontent.com/idnow/de.idnow.android/de.idnow.android-6.7.0"
     }
 }
 
