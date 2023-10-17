@@ -39,14 +39,14 @@ repositories {
     mavenCentral()
     google()
     maven {
-        url "https://raw.githubusercontent.com/idnow/de.idnow.android/de.idnow.android-6.7.0"
+        url "https://raw.githubusercontent.com/idnow/de.idnow.android/de.idnow.android-7.2.0"
     }
 }
 
 dependencies {
     implementation 'com.facebook.react:react-native:+'
 
-    implementation 'de.idnow.sdk:idnow-android-sdk:6.7.0'
+    implementation 'de.idnow.sdk:idnow-android-sdk:7.2.0'
     implementation 'de.idnow.android.eid:idnow-android-eid-sdk:2.6.0'
     implementation "androidx.multidex:multidex:2.0.1"
 }
