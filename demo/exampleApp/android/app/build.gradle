@@ -100,8 +100,6 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
-        // for idnow: not required
-        multiDexEnabled true
     }
 
     splits {
@@ -167,6 +165,15 @@ dependencies {
     } else {
         implementation jscFlavor
     }
+
+    // Bouncycastle external libs
+    // https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk18on
+    // This is the version used by the Fourthline SDK
+    def bcVersion = "jdk18on:1.76"
+    def bc = "org.bouncycastle"
+    implementation("$bc:bcprov-$bcVersion")
+    implementation("$bc:bcutil-$bcVersion")
+    runtimeOnly("$bc:bctls-$bcVersion") //this is needed
 }
 
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
