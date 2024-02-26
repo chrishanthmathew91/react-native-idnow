@@ -167,11 +167,6 @@ dependencies {
     } else {
         implementation jscFlavor
     }
-
-    // for idnow
-    implementation 'de.idnow.sdk:idnow-android-sdk:7.5.0.1'
-    implementation 'de.idnow.android.eid:idnow-android-eid-sdk:2.7.4'
-    implementation "androidx.multidex:multidex:2.0.1"
 }
 
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)

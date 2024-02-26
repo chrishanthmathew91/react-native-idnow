@@ -7,17 +7,17 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.3.1'
+        classpath 'com.android.tools.build:gradle:7.4.1'
     }
 }
 
 android {
-    compileSdkVersion 28
-    buildToolsVersion "28.0.3"
+    compileSdkVersion 33
+    buildToolsVersion "33.0.0"
 
     defaultConfig {
-        minSdkVersion 21
-        targetSdkVersion 28
+        minSdkVersion 24
+        targetSdkVersion 33
         versionCode 1
         versionName "1.0"
         multiDexEnabled true
@@ -27,7 +27,7 @@ android {
     }
     compileOptions {
        sourceCompatibility 1.8
-        targetCompatibility 1.8
+       targetCompatibility 1.8
     }
     packagingOptions {
         exclude 'META-INF/*.kotlin_module'
@@ -44,9 +44,8 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.facebook.react:react-native:+'
-
-    implementation 'de.idnow.sdk:idnow-android-sdk:7.3.0'
-    implementation 'de.idnow.android.eid:idnow-android-eid-sdk:2.7.2'
+    // for idnow
+    implementation 'de.idnow.sdk:idnow-android-sdk:7.5.0.1'
+    implementation 'de.idnow.android.eid:idnow-android-eid-sdk:2.7.4'
     implementation "androidx.multidex:multidex:2.0.1"
 }
