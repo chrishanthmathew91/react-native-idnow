@@ -33,7 +33,7 @@
   },
   "license": "MIT",
   "peerDependencies": {
-    "react-native": "^0.41.2"
+    "react-native": "^0.71.14"
   },
   "devDependencies": {
     "husky": "4.2.3",
