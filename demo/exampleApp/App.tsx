@@ -1,10 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
 import React from 'react';
 import {
   Button,
@@ -14,38 +7,23 @@ import {
   Text,
   View,
 } from 'react-native';
-// import {IDnowManager} from 'react-native-idnow';
+import {IDnowManager} from 'react-native-idnow';
 
 const options = {
   showVideoOverviewCheck: false,
   transactionToken: 'ZBW-TALJU',
   environment: 'LIVE',
-  // showErrorSuccessScreen: true,
-  // appearance: {
-  //   primaryBrandColor: -12939777,
-  //   proceedButtonBackgroundColor: -12939777,
-  //   proceedButtonTextColor: -1,
-  //   defaultTextColor: -1,
-  //   fontNameRegular: 'OpenSans-Regular',
-  //   fontNameLight: 'OpenSans-Ligth',
-  //   fontNameMedium: 'OpenSans-Bold',
-  //   successColor: -14963413,
-  //   failureColor: -14211289,
-  //   photoIdentRetakeButtonBackgroundColor: -12939777,
-  //   photoIdentRetakeButtonTextColor: -1,
-  //   enableStatusBarStyleLightContent: false,
-  // },
+  showErrorSuccessScreen: true,
 };
 
 function App(): JSX.Element {
   const onPress = async () => {
-    console.log('---onPress--');
-    // try {
-    //   const resp = await IDnowManager.startVideoIdent(options);
-    //   console.warn('==== resp', resp);
-    // } catch (e) {
-    //   console.warn('==== e', e);
-    // }
+    try {
+      const resp = await IDnowManager.startVideoIdent(options);
+      console.log('==== resp', resp);
+    } catch (e) {
+      console.warn('==== e', e);
+    }
   };
   return (
     <SafeAreaView style={styles.container}>
