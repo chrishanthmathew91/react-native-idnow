@@ -11,7 +11,7 @@ import {IDnowManager} from 'react-native-idnow';
 
 const options = {
   showVideoOverviewCheck: false,
-  transactionToken: 'ZBW-TALJU',
+  transactionToken: 'KED-TVPKK', //NOTE: correct the new value
   environment: 'LIVE',
   showErrorSuccessScreen: true,
 };
@@ -20,9 +20,9 @@ function App(): JSX.Element {
   const onPress = async () => {
     try {
       const resp = await IDnowManager.startVideoIdent(options);
-      console.log('==== resp', resp);
+      console.log('---idnow success--->', resp);
     } catch (e) {
-      console.warn('==== e', e);
+      console.warn('---idnow error--->', e);
     }
   };
   return (
