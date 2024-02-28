@@ -14,15 +14,46 @@ import com.facebook.react.bridge.ReadableMap;
 
 import de.idnow.sdk.IDnowSDK;
 
-public class RNIdnowModule extends ReactContextBaseJavaModule implements ActivityEventListener {
+public class RNIdnowModule extends ReactContextBaseJavaModule{
     private final ReactApplicationContext reactContext;
     private Promise idnowPromise;
     private static final String TAG = "idnow";
 
+    private final ActivityEventListener idnowActivityEventListener = new BaseActivityEventListener() {
+        @Override
+        public void onActivityResult(Activity activity, int requestCode, int resultCode, Intent intent) {
+            if (requestCode == IDnowSDK.REQUEST_ID_NOW_SDK) {
+                Log.d(TAG, "---onActivityResult for idnow ---");
+                if (idnowPromise != null){
+                    switch (resultCode) {
+                        case IDnowSDK.RESULT_CODE_SUCCESS:
+                            Log.d(TAG, "---success ---");
+                            idnowPromise.resolve(true);
+                            break;
+                        case IDnowSDK.RESULT_CODE_CANCEL:
+                            Log.d(TAG, "---cancelled ---");
+                            idnowPromise.reject("CANCELLED", "Identification canceled");
+                            break;
+                        case IDnowSDK.RESULT_CODE_FAILED:
+                            Log.d(TAG, "---failed ---");
+                            idnowPromise.reject("FAILED", "Identification failed");
+                            break;
+                        default:
+                            Log.d(TAG, "---default error block ---");
+                            idnowPromise.reject("INTERNAL_ERROR", "Internal error: ");
+                    }
+                }else{
+                    Log.e(TAG, "---promise is null ---");
+                }
+            }
+        }
+    };
+
+
     public RNIdnowModule(ReactApplicationContext reactContext) {
         super(reactContext);
         this.reactContext = reactContext;
-        this.reactContext.addActivityEventListener(this);
+        reactContext.addActivityEventListener(idnowActivityEventListener);
     }
 
     @Override
@@ -47,36 +78,17 @@ public class RNIdnowModule extends ReactContextBaseJavaModule implements Activit
         }
     }
 
-    @Override
-    public void onActivityResult(Activity activity, int requestCode, int resultCode, Intent intent) {
-        if (requestCode == IDnowSDK.REQUEST_ID_NOW_SDK) {
-            Log.d(TAG, "---onActivityResult for idnow ---");
-            if (idnowPromise != null){
-                switch (resultCode) {
-                    case IDnowSDK.RESULT_CODE_SUCCESS:
-                        Log.d(TAG, "---success ---");
-                        idnowPromise.resolve(true);
-                        break;
-                    case IDnowSDK.RESULT_CODE_CANCEL:
-                        Log.d(TAG, "---cancelled ---");
-                        idnowPromise.reject("CANCELLED", "Identification canceled");
-                        break;
-                    case IDnowSDK.RESULT_CODE_FAILED:
-                        Log.d(TAG, "---failed ---");
-                        idnowPromise.reject("FAILED", "Identification failed");
-                        break;
-                    default:
-                        Log.d(TAG, "---default error block ---");
-                        idnowPromise.reject("INTERNAL_ERROR", "Internal error: ");
-                }
-            }else{
-                Log.e(TAG, "---promise is null ---");
-            }
-        }
-    }
-
-    @Override
-    public void onNewIntent(Intent intent) {
-
-    }
 }
+
+
+//      IDnowSDK.setEnvironment(IDnowSDK.Server.LIVE);
+//      IDnowSDK.enableLogging();
+//      IDnowSDK.setNameForActionBar(null, reactContext);
+//      IDnowSDK.setLocale(reactContext, "de");
+//      Log.d(TAG, String.format("calledFromIDnowApp = %b", IDnowSDK.calledFromIDnowApp(reactContext)));
+//      Log.d(TAG, String.format("getNameForActionBar = %s", IDnowSDK.getNameForActionBar(reactContext)));
+//      Log.d(TAG, String.format("isShowVideoOverviewCheck = %b", IDnowSDK.isShowVideoOverviewCheck(reactContext)));
+//      Log.d(TAG, String.format("getCompanyId = %s", IDnowSDK.getCompanyId()));
+//      Log.d(TAG, String.format("getTransactionToken = %s", IDnowSDK.getTransactionToken()));
+//      Log.d(TAG, String.format("getEnvironment = %s", IDnowSDK.getEnvironment()));
+//      Log.d(TAG, String.format("isLoggingEnabled = %b", IDnowSDK.isLoggingEnabled()));

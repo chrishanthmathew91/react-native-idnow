@@ -100,6 +100,7 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
     }
 
     splits {
@@ -172,6 +173,7 @@ dependencies {
     def bcVersion = "jdk18on:1.76"
     def bc = "org.bouncycastle"
     implementation("$bc:bcprov-$bcVersion")
+    implementation("$bc:bctls-$bcVersion")
     implementation("$bc:bcutil-$bcVersion")
     runtimeOnly("$bc:bctls-$bcVersion") //this is needed
 }
