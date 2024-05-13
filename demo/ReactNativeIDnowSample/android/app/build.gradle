@@ -212,8 +212,8 @@ dependencies {
     } else {
         implementation jscFlavor
     }
-    implementation 'de.idnow.sdk:idnow-android-sdk:7.3.0'
-    implementation 'de.idnow.android.eid:idnow-android-eid-sdk:2.7.2'
+    implementation 'de.idnow.sdk:idnow-android-sdk:7.8.0'
+    implementation 'de.idnow.android.eid:idnow-android-eid-sdk:2.7.6'
     implementation "androidx.multidex:multidex:2.0.1"
 }
 
