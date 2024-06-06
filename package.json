@@ -1,6 +1,6 @@
 {
   "name": "react-native-idnow",
-  "version": "0.1.8",
+  "version": "0.2.6",
   "description": "React Native IDnow binding for iOS/Android platforms.",
   "main": "index.js",
   "scripts": {
@@ -33,7 +33,7 @@
   },
   "license": "MIT",
   "peerDependencies": {
-    "react-native": "^0.41.2"
+    "react-native": "^0.71.14"
   },
   "devDependencies": {
     "husky": "4.2.3",

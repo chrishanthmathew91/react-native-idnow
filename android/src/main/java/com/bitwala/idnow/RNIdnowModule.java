@@ -3,7 +3,7 @@ package com.bitwala.idnow;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.widget.Toast;
+import android.util.Log;
 
 import com.facebook.react.bridge.ActivityEventListener;
 import com.facebook.react.bridge.BaseActivityEventListener;
@@ -13,68 +13,54 @@ import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReadableMap;
 
-//import java.util.HashMap;
-
 import de.idnow.sdk.IDnowSDK;
 
-public class RNIdnowModule extends ReactContextBaseJavaModule {
-
+public class RNIdnowModule extends ReactContextBaseJavaModule{
     private final ReactApplicationContext reactContext;
     private Promise idnowPromise;
+    private static final String TAG = "idnow";
 
     private final ActivityEventListener idnowActivityEventListener = new BaseActivityEventListener() {
         @Override
         public void onActivityResult(Activity activity, int requestCode, int resultCode, Intent intent) {
             if (requestCode == IDnowSDK.REQUEST_ID_NOW_SDK) {
-                switch (resultCode) {
-
-                    case IDnowSDK.RESULT_CODE_SUCCESS:
-                        idnowPromise.resolve(true);
-                        break;
-
-                    case IDnowSDK.RESULT_CODE_CANCEL:
-                        idnowPromise.reject("CANCELLED", "Identification canceled");
-                        break;
-
-                    case IDnowSDK.RESULT_CODE_FAILED:
-                        idnowPromise.reject("FAILED", "Identification failed");
-                        break;
-
-                    default:
-                        idnowPromise.reject("INTERNAL_ERROR", "Internal error: " + resultCode);
+                Log.d(TAG, "---onActivityResult for idnow ---");
+                if (idnowPromise != null){
+                    switch (resultCode) {
+                        case IDnowSDK.RESULT_CODE_SUCCESS:
+                            Log.d(TAG, "---success ---");
+                            idnowPromise.resolve(true);
+                            break;
+                        case IDnowSDK.RESULT_CODE_CANCEL:
+                            Log.d(TAG, "---cancelled ---");
+                            idnowPromise.reject("CANCELLED", "Identification canceled");
+                            break;
+                        case IDnowSDK.RESULT_CODE_FAILED:
+                            Log.d(TAG, "---failed ---");
+                            idnowPromise.reject("FAILED", "Identification failed");
+                            break;
+                        default:
+                            Log.d(TAG, "---default error block ---");
+                            idnowPromise.reject("INTERNAL_ERROR", "Internal error: ");
+                    }
+                }else{
+                    Log.e(TAG, "---promise is null ---");
                 }
             }
         }
     };
 
+
     public RNIdnowModule(ReactApplicationContext reactContext) {
         super(reactContext);
-        reactContext.addActivityEventListener(idnowActivityEventListener);
         this.reactContext = reactContext;
+        reactContext.addActivityEventListener(idnowActivityEventListener);
     }
 
     @Override
     public String getName() {
         return "RNIdnow";
     }
-
-    // private IDnowSDK.Server getServer(String environment) {
-    //     final HashMap<String, IDnowSDK.Server> environmentServerMap = new HashMap();
-
-    //     environmentServerMap.put("DEV", IDnowSDK.Server.DEV);
-    //     environmentServerMap.put("DEV2", IDnowSDK.Server.DEV2);
-    //     environmentServerMap.put("TEST", IDnowSDK.Server.TEST);
-    //     environmentServerMap.put("TEST1", IDnowSDK.Server.TEST1);
-    //     environmentServerMap.put("TEST2", IDnowSDK.Server.TEST2);
-    //     environmentServerMap.put("TEST3", IDnowSDK.Server.TEST3);
-    //     environmentServerMap.put("LIVE", IDnowSDK.Server.LIVE);
-    //     environmentServerMap.put("CUSTOM", IDnowSDK.Server.CUSTOM);
-    //     environmentServerMap.put("INT", IDnowSDK.Server.INT);
-    //     environmentServerMap.put("DV3", IDnowSDK.Server.DV3);
-    //     environmentServerMap.put("DV4", IDnowSDK.Server.DV4);
-
-    //     return environmentServerMap.get(environment);
-    // }
 
     @ReactMethod
     public void startVideoIdent(final ReadableMap options, final Promise promise) {
@@ -85,33 +71,25 @@ public class RNIdnowModule extends ReactContextBaseJavaModule {
             IDnowSDK.getInstance().initialize(currentActivity, options.getString("companyId"));
             IDnowSDK.setShowVideoOverviewCheck(options.getBoolean("showVideoOverviewCheck"), reactContext);
             IDnowSDK.setShowErrorSuccessScreen(options.getBoolean("showErrorSuccessScreen"), reactContext);
-
-            // String environment = options.getString("environment");
-
-            // IDnowSDK.setEnvironment(this.getServer(environment)); // no need to force to use a specific env; Default is to determine this by the token used
-
-            // if (environment.equals("CUSTOM")) {
-            //     IDnowSDK.setEnvironment(IDnowSDK.Server.CUSTOM);
-            //     IDnowSDK.setApiHost(options.getString("apiHost"), reactContext); // require if env is "CUSTOM"
-            //     IDnowSDK.setWebHost(options.getString("webHost"), reactContext); // require if env is "CUSTOM"
-            //     IDnowSDK.setWebsocketHost(options.getString("websocketHost"), reactContext); // require if env is "CUSTOM"
-
-            //     if (options.hasKey("videoHost")) {
-            //         IDnowSDK.setVideoHost(options.getString("videoHost"), reactContext);
-            //     }
-            //     if (options.hasKey("stunHost")) {
-            //         IDnowSDK.setStunHost(options.getString("stunHost"), reactContext);
-            //     }
-            //     if (options.hasKey("stunPort")) {
-            //         IDnowSDK.setStunPort(options.getInt("stunPort"), reactContext);
-            //     }
-            // }
-
-            IDnowSDK.setTransactionToken(options.getString("transactionToken"), reactContext);
-
-            IDnowSDK.getInstance().start(IDnowSDK.getTransactionToken(reactContext));
+            IDnowSDK.setTransactionToken(options.getString("transactionToken"));
+            Log.d(TAG, "---starting idnow ---");
+            IDnowSDK.getInstance().start(IDnowSDK.getTransactionToken());
         } catch (Exception e) {
             promise.reject("ERR_UNEXPECTED_EXCEPTION", e);
         }
     }
+
 }
+
+
+//      IDnowSDK.setEnvironment(IDnowSDK.Server.LIVE);
+//      IDnowSDK.enableLogging();
+//      IDnowSDK.setNameForActionBar(null, reactContext);
+//      IDnowSDK.setLocale(reactContext, "de");
+//      Log.d(TAG, String.format("calledFromIDnowApp = %b", IDnowSDK.calledFromIDnowApp(reactContext)));
+//      Log.d(TAG, String.format("getNameForActionBar = %s", IDnowSDK.getNameForActionBar(reactContext)));
+//      Log.d(TAG, String.format("isShowVideoOverviewCheck = %b", IDnowSDK.isShowVideoOverviewCheck(reactContext)));
+//      Log.d(TAG, String.format("getCompanyId = %s", IDnowSDK.getCompanyId()));
+//      Log.d(TAG, String.format("getTransactionToken = %s", IDnowSDK.getTransactionToken()));
+//      Log.d(TAG, String.format("getEnvironment = %s", IDnowSDK.getEnvironment()));
+//      Log.d(TAG, String.format("isLoggingEnabled = %b", IDnowSDK.isLoggingEnabled()));
