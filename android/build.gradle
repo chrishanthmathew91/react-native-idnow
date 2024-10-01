@@ -9,17 +9,16 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.4.1'
+        classpath 'com.android.tools.build:gradle:8.5.2'
     }
 }
 
 android {
-    compileSdkVersion 33
-    buildToolsVersion "33.0.0"
-
+    compileSdk 34
+    namespace "com.raisin.idnow"
     defaultConfig {
-        minSdkVersion 24
-        targetSdkVersion 33
+        minSdkVersion 26
+        targetSdkVersion 34
         versionCode 1
         versionName "1.0"
         multiDexEnabled true
@@ -27,10 +26,10 @@ android {
     lintOptions {
         abortOnError false
     }
-    compileOptions {
-       sourceCompatibility 1.8
-       targetCompatibility 1.8
-    }
+//    compileOptions {
+//       sourceCompatibility 1.8
+//       targetCompatibility 1.8
+//    }
     packagingOptions {
         exclude 'META-INF/*.kotlin_module'
     }
@@ -51,6 +50,7 @@ repositories {
 
 dependencies {
     implementation 'com.facebook.react:react-native:+'
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.23'
 
     // for idnow
     implementation 'de.idnow.sdk:idnow-android-sdk:8.5.0'
