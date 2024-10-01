@@ -3,7 +3,9 @@ apply plugin: 'com.android.library'
 buildscript {
     repositories {
         jcenter()
+        mavenCentral()
         google()
+        maven { url 'https://jitpack.io' }
     }
 
     dependencies {
@@ -41,13 +43,17 @@ repositories {
     maven {
         url "https://raw.githubusercontent.com/idnow/de.idnow.android/master"
     }
+    maven { url 'https://jitpack.io' }
+    flatDir {
+        dirs 'libs' //this way we can find the .aar file in libs folder
+    }
 }
 
 dependencies {
     implementation 'com.facebook.react:react-native:+'
 
     // for idnow
-    implementation 'de.idnow.sdk:idnow-android-sdk:7.8.0'
-    implementation 'de.idnow.android.eid:idnow-android-eid-sdk:2.7.6'
+    implementation 'de.idnow.sdk:idnow-android-sdk:8.5.0'
+    implementation 'de.idnow.android.eid:idnow-android-eid-sdk:2.12.0'
     implementation "androidx.multidex:multidex:2.0.1"
 }
