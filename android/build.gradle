@@ -8,8 +8,11 @@ buildscript {
         maven { url 'https://jitpack.io' }
     }
 
+    ext.kotlin_version = '1.9.20'
+
     dependencies {
         classpath 'com.android.tools.build:gradle:8.5.2'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
 
@@ -50,7 +53,6 @@ repositories {
 
 dependencies {
     implementation 'com.facebook.react:react-native:+'
-    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.23'
 
     // for idnow
     implementation 'de.idnow.sdk:idnow-android-sdk:8.5.0'
